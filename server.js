@@ -21,15 +21,13 @@ function handler(req, res) {
 var colors = ['red','green','yellow','orange','blue','purple','pink'];
 var blocks = []
 var index = 0;
+while (blocks.length < 40) {
+  blocks.push({id:index++,
+              color:colors[parseInt(Math.random().toString().split('.')[1]) % colors.length],
+              top: (100 * index),
+              left: (100 * index),
+             });
 io.sockets.on('connection', function(socket) {
-  blocks.push(
-    {id: index++,
-     color:colors[parseInt(Math.random().toString().split('.')[1]) % colors.length],
-     top: 0,
-     left: 0,
-    });
-  if (blocks.length > 40) blocks.shift();
-
   socket.emit('blocks', blocks);
   socket.on('update', function(block) {
     console.log('update - ' + block);

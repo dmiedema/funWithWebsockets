@@ -27,10 +27,11 @@ while (blocks.length < 40) {
               top: (100 * index),
               left: (100 * index),
              });
-io.sockets.on('connection', function(socket) {
-  socket.emit('blocks', blocks);
-  socket.on('update', function(block) {
-    console.log('update - ' + block);
-    socket.broadcast.emit('update', block);
+  io.sockets.on('connection', function(socket) {
+    socket.emit('blocks', blocks);
+    socket.on('update', function(block) {
+      console.log('update - ' + block);
+      socket.broadcast.emit('update', block);
+    });
   });
-});
+} // end while
